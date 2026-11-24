@@ -1,0 +1,39 @@
+{
+  "contracts/HelloWorld.sol": {
+    "__sources__": {
+      "contracts/HelloWorld.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity >=0.6.12 <0.9.0;\n\ncontract HelloWorld {\n  /**\n   * @dev Prints Hello World string\n   */\n  function print() public pure returns (string memory) {\n    return \"Hello World!\";\n  }\n}\n",
+        "file": "contracts/HelloWorld.sol"
+      }
+    }
+  },
+  "contracts/types/Deworkypes.sol": {
+    "__sources__": {
+      "contracts/types/Deworkypes.sol": {
+        "content": "struct FreelancerProfile{\n    uint256 id;\n    string name;\n    address wallet;\n    uint8 yearOfExperience;\n    bool isAvaliableHere;\n    uint256 hourlyRateWei;\n}",
+        "file": "contracts/types/Deworkypes.sol"
+      }
+    }
+  },
+  "contracts/types/Deworkype.sol": {
+    "__sources__": {
+      "contracts/types/Deworkype.sol": {
+        "content": "struct FreelancerProfile{\n    uint256 id;\n    string name;\n    address wallet;\n    uint8 yearOfExperience;\n    bool isAvaliableHere;\n    uint256 hourlyRateWei;\n}",
+        "file": "contracts/types/Deworkype.sol"
+      }
+    }
+  },
+  "contracts/Dework.sol": {
+    "./types/DeworkType.sol": "contracts/types/DeworkType.sol",
+    "__sources__": {
+      "contracts/Dework.sol": {
+        "content": "// SPDX-License-Identifier: GPL-3.0\npragma solidity =0.8.34;\nimport {FreelancerProfile, EmployeeProfile} from \"./types/DeworkType.sol\";\n\ncontract Dework{\n    uint connectFee;\n    address public initialOwner;\n    FreelancerProfile[] public freelancerProfiles;\n    EmployeeProfile[] public employeeProfiles;\n\n    constructor(address _initalOwner){\n        initialOwner = _initalOwner;\n    }\n\n    function getNumberOfRegisteredFreelancers() public view returns (uint256){\n        return freelancerProfiles.length;\n    }\n\n    function registerFreelancherProfile(\n        string calldata name,\n        uint8 experienceYears,\n        uint256 hourlyRateWei \n    ) external {\n        uint256 freelancerId = getNumberOfRegisteredFreelancers();\n        FreelancerProfile memory freelancherProfile = FreelancerProfile({\n            id: freelancerId,\n            name: name,\n            wallet: msg.sender,\n            experienceYears: experienceYears,\n            isAvaliableHere: true,\n            hourlyRateWei: hourlyRateWei\n        });\n        freelancerProfiles.push(freelancherProfile);\n        \n    }\n\n    function getFreelancerProfile() public view returns(FreelancerProfile[] memory){\n        return  freelancerProfiles;\n    }\n\n    // Employee\n    function getNumberOfEmployee() public view returns (uint256){\n        return employeeProfiles.length;\n    }\n\n    function registerEmployeeProfile(\n        string calldata name\n    ) external  {\n        uint256 employeeId = getNumberOfEmployee();\n\n        EmployeeProfile memory employeeProfile = EmployeeProfile({\n            id: employeeId,\n            name: name,\n            wallet: msg.sender,\n            isHiring: false\n        });\n\n        employeeProfiles.push(employeeProfile);\n    }\n\n    function getEmployeeProfile() public view returns(EmployeeProfile[] memory){\n        return employeeProfiles;\n    }\n\n\n} ",
+        "file": "contracts/Dework.sol"
+      },
+      "contracts/types/DeworkType.sol": {
+        "content": "struct FreelancerProfile{\n    uint256 id;\n    string name;\n    address wallet;\n    uint8 experienceYears;\n    bool isAvaliableHere;\n    uint256 hourlyRateWei;\n}\n\nstruct EmployeeProfile{\n    uint256 id;\n    string name;\n    bool isHiring;\n    address wallet; \n}",
+        "file": "contracts/types/DeworkType.sol"
+      }
+    }
+  }
+}
